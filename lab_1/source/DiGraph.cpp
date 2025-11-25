@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Node.h"
 #include <fstream>
+#include "Matrix.h"
 
 
 DiGraph::DiGraph():next_free_node_id(0){}
@@ -45,6 +46,14 @@ Node* DiGraph::get_node_by_id(std::int32_t node_id) const {
     }
 }
 
+bool DiGraph::has_node(std::int32_t node_id) const {
+    auto it = node_map.find(node_id);
+    if (it != node_map.end()) {
+        return node_map.at(node_id);
+    }
+    return false;
+}
+
 void DiGraph::add_edge(int32_t source_id, int32_t target_id){
     auto source_it = node_map.find(source_id);
     auto target_it = node_map.find(target_id);
@@ -76,7 +85,17 @@ void DiGraph::export_to_dot_file(std::string file_path) const {
 }
 
 
-Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const { return Matrix<bool>(1, 1); }
+Matrix<bool> DiGraph::get_adjacency_matrix_from_graph() const {
+    auto d = get_node_count();
+    Matrix<bool> m(d,d);
+    for (auto const& [_, source_ptr] : node_map) {
+        auto const targets = source_ptr->get_out_edges();
+        for (auto const& target_ptr : targets) {
+            m.set_content(source_ptr->get_id(), target_ptr->get_id(),1);
+        }
+    }
+    return m;
+ }
 
 /* Do not change the code below here */
 

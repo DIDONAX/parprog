@@ -82,6 +82,16 @@ template <typename T> class Matrix {
             }
             return result;
         }
+        
+        Matrix<T>& operator=(const Matrix<T>& other) {
+            if (this == &other) return *this;
+            for (int i = 0; i < rows; ++i) {
+                for (int j = 0; j < columns; ++j) {
+                    set_content(i,j,other.get_content(i,j));
+                }
+            }
+            return *this;
+        }
 
         /* Do not change the code below here */
         /* These functions are used for testing purposes. */

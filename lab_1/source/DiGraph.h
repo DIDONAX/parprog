@@ -21,6 +21,7 @@ class DiGraph {
         void add_edge(std::int32_t source_id, std::int32_t target_id);
         void export_to_dot_file(std::string file_path) const;
         Matrix<bool> get_adjacency_matrix_from_graph() const;
+        bool has_node(std::int32_t node_id) const;
 
         std::int32_t* get_next_free_node_id_ptr();
         std::unordered_map<int32_t, Node*>* get_node_map_ptr();
