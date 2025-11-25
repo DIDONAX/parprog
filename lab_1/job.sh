@@ -7,7 +7,7 @@
 #SBATCH -n 1
 #SBATCH --mem-per-cpu=1024
 #SBATCH --time=5
-#SBATCH --cpus-per-task=96
+#SBATCH --cpus-per-task=1
 #SBATCH -c 96
 #SBATCH -A kurs00093
 #SBATCH -p kurs00093
